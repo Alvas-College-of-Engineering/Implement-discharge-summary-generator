@@ -1,0 +1,160 @@
+package com.hospital.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hospital.model.Patient;
+import com.hospital.util.DBConnection;
+
+public class PatientDAO {
+
+    public boolean addPatient(Patient patient) {
+        boolean status = false;
+        String query = "INSERT INTO patients (patient_name, age, gender, address, phone, admission_date, discharge_date, diagnosis, treatment_details, doctor_name, prescription, room_number, total_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, patient.getPatientName());
+            ps.setInt(2, patient.getAge());
+            ps.setString(3, patient.getGender());
+            ps.setString(4, patient.getAddress());
+            ps.setString(5, patient.getPhone());
+            ps.setDate(6, patient.getAdmissionDate());
+            ps.setDate(7, patient.getDischargeDate());
+            ps.setString(8, patient.getDiagnosis());
+            ps.setString(9, patient.getTreatmentDetails());
+            ps.setString(10, patient.getDoctorName());
+            ps.setString(11, patient.getPrescription());
+            ps.setString(12, patient.getRoomNumber());
+            ps.setDouble(13, patient.getTotalAmount());
+            
+            int result = ps.executeUpdate();
+            if (result > 0) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+
+    public List<Patient> getAllPatients() {
+        List<Patient> patients = new ArrayList<>();
+        String query = "SELECT * FROM patients ORDER BY patient_id DESC";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Patient p = new Patient();
+                p.setPatientId(rs.getInt("patient_id"));
+                p.setPatientName(rs.getString("patient_name"));
+                p.setAge(rs.getInt("age"));
+                p.setGender(rs.getString("gender"));
+                p.setAddress(rs.getString("address"));
+                p.setPhone(rs.getString("phone"));
+                p.setAdmissionDate(rs.getDate("admission_date"));
+                p.setDischargeDate(rs.getDate("discharge_date"));
+                p.setDiagnosis(rs.getString("diagnosis"));
+                p.setTreatmentDetails(rs.getString("treatment_details"));
+                p.setDoctorName(rs.getString("doctor_name"));
+                p.setPrescription(rs.getString("prescription"));
+                p.setRoomNumber(rs.getString("room_number"));
+                p.setTotalAmount(rs.getDouble("total_amount"));
+                patients.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patients;
+    }
+
+    public Patient getPatientById(int id) {
+        Patient p = null;
+        String query = "SELECT * FROM patients WHERE patient_id = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    p = new Patient();
+                    p.setPatientId(rs.getInt("patient_id"));
+                    p.setPatientName(rs.getString("patient_name"));
+                    p.setAge(rs.getInt("age"));
+                    p.setGender(rs.getString("gender"));
+                    p.setAddress(rs.getString("address"));
+                    p.setPhone(rs.getString("phone"));
+                    p.setAdmissionDate(rs.getDate("admission_date"));
+                    p.setDischargeDate(rs.getDate("discharge_date"));
+                    p.setDiagnosis(rs.getString("diagnosis"));
+                    p.setTreatmentDetails(rs.getString("treatment_details"));
+                    p.setDoctorName(rs.getString("doctor_name"));
+                    p.setPrescription(rs.getString("prescription"));
+                    p.setRoomNumber(rs.getString("room_number"));
+                    p.setTotalAmount(rs.getDouble("total_amount"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    public boolean updatePatient(Patient patient) {
+        boolean status = false;
+        String query = "UPDATE patients SET patient_name=?, age=?, gender=?, address=?, phone=?, admission_date=?, discharge_date=?, diagnosis=?, treatment_details=?, doctor_name=?, prescription=?, room_number=?, total_amount=? WHERE patient_id=?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, patient.getPatientName());
+            ps.setInt(2, patient.getAge());
+            ps.setString(3, patient.getGender());
+            ps.setString(4, patient.getAddress());
+            ps.setString(5, patient.getPhone());
+            ps.setDate(6, patient.getAdmissionDate());
+            ps.setDate(7, patient.getDischargeDate());
+            ps.setString(8, patient.getDiagnosis());
+            ps.setString(9, patient.getTreatmentDetails());
+            ps.setString(10, patient.getDoctorName());
+            ps.setString(11, patient.getPrescription());
+            ps.setString(12, patient.getRoomNumber());
+            ps.setDouble(13, patient.getTotalAmount());
+            ps.setInt(14, patient.getPatientId());
+            
+            int result = ps.executeUpdate();
+            if (result > 0) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+
+    public boolean deletePatient(int id) {
+        boolean status = false;
+        String query = "DELETE FROM patients WHERE patient_id = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, id);
+            int result = ps.executeUpdate();
+            if (result > 0) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+}

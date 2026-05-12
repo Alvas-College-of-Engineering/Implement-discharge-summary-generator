@@ -1,0 +1,156 @@
+package com.hospital.model;
+
+import java.sql.Date;
+
+public class Patient {
+    private int patientId;
+    private String patientName;
+    private int age;
+    private String gender;
+    private String address;
+    private String phone;
+    private Date admissionDate;
+    private Date dischargeDate;
+    private String diagnosis;
+    private String treatmentDetails;
+    private String doctorName;
+    private String prescription;
+    private String roomNumber;
+    private double totalAmount;
+
+    public Patient() {
+        super();
+    }
+
+    public Patient(int patientId, String patientName, int age, String gender, String address, String phone,
+            Date admissionDate, Date dischargeDate, String diagnosis, String treatmentDetails, String doctorName,
+            String prescription, String roomNumber, double totalAmount) {
+        super();
+        this.patientId = patientId;
+        this.patientName = patientName;
+        this.age = age;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.admissionDate = admissionDate;
+        this.dischargeDate = dischargeDate;
+        this.diagnosis = diagnosis;
+        this.treatmentDetails = treatmentDetails;
+        this.doctorName = doctorName;
+        this.prescription = prescription;
+        this.roomNumber = roomNumber;
+        this.totalAmount = totalAmount;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(Date admissionDate) {
+        this.admissionDate = admissionDate;
+    }
+
+    public Date getDischargeDate() {
+        return dischargeDate;
+    }
+
+    public void setDischargeDate(Date dischargeDate) {
+        this.dischargeDate = dischargeDate;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getTreatmentDetails() {
+        return treatmentDetails;
+    }
+
+    public void setTreatmentDetails(String treatmentDetails) {
+        this.treatmentDetails = treatmentDetails;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(String prescription) {
+        this.prescription = prescription;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+}
